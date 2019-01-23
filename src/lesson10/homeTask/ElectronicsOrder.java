@@ -16,6 +16,7 @@ public class ElectronicsOrder extends Order {
 
     @Override
     public void validateOrder() {
+
         if ((getShipFromCity().equals("Киев") || getShipFromCity().equals("Одесса") || getShipFromCity().equals("Днепр") || getShipFromCity().equals("Харьков")) && (getShipToCity().equals("Киев") || getShipToCity().equals("Одесса") || getShipToCity().equals("Днепр") || getShipToCity().equals("Харьков")) && (getBasePrice() >= 100) && (getCustomerOwned().getGender().equals("Женский")))
         setDateConfirmed(new Date());
     }
