@@ -33,7 +33,7 @@ public class Demo {
         // ElectronicsOrder:
         //1. getBasePrice < 100;
         //2. getCustomerOwned().getGender().equals("Мужской")
-        //3. getShipFromCity().equals("London")
+        //3. getShipToCity().equals("London")
 
 
 
@@ -42,9 +42,7 @@ public class Demo {
 
         ElectronicsOrder electronicsOrder10 = new ElectronicsOrder("eo10", new Date(), "Киев", "Киев", 50, customer2, 1);
         ElectronicsOrder electronicsOrder11 = new ElectronicsOrder("eo11", new Date(), "Киев", "Киев", 700, customer1, 1);
-        ElectronicsOrder electronicsOrder12 = new ElectronicsOrder("eo12", new Date(), "London", "Киев", 700, customer2, 1);
-
-
+        ElectronicsOrder electronicsOrder12 = new ElectronicsOrder("eo12", new Date(), "Киев", "London", 1700, customer2, 1);
 
 
         Order[] eOrders = new Order[]{electronicsOrder10, electronicsOrder11, electronicsOrder12};
@@ -55,10 +53,6 @@ public class Demo {
             order.setTotalPrice(2000);
             System.out.println(order.toString());
         }
-
-
-
-
 
     }
 }

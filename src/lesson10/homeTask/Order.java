@@ -26,6 +26,7 @@ public abstract class Order {
     abstract public void calculatePrice();
 
     public void confirmShipping(){
+        System.out.println("confirmShipping is running");
         if (dateShipped == null)
             dateShipped = new Date();
     }
