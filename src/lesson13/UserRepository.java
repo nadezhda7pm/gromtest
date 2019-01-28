@@ -1,6 +1,6 @@
 package lesson13;
 
-import lesson9.User.User;
+import java.util.Arrays;
 
 public class UserRepository {
     private User[] users;
@@ -66,7 +66,7 @@ public class UserRepository {
     public User getUserByName(String name) {
         if (users != null)
             for (User user : users) {
-                if (user != null && name == user.getName())
+                if (user != null && name.equals(user.getName()))
                     return user;
             }
         return null;
@@ -84,7 +84,7 @@ public class UserRepository {
     public User getUserBySessionId(String sessionId) {
         if (users != null)
             for (User user : users) {
-                if (user != null && sessionId == user.getSessionId())
+                if (user != null && sessionId.equals(user.getSessionId()))
                     return user;
             }
         return null;
@@ -97,12 +97,12 @@ public class UserRepository {
         UserRepository userRepository = new UserRepository(users);
 
         for (User u : userRepository.getUsers()) {
-            if (userRepository.findById(user.getId()) == user)
+            if (user != null && userRepository.findById(user.getId()) == user)
                 return null;
         }
 
         for (int i = 0; i < userRepository.getUsers().length; i++) {
-            if (userRepository.getUsers()[i] == null) {
+            if (userRepository.getUsers()[i] == null && user != null) {
                 userRepository.getUsers()[i] = user;
                 return user;
             }
@@ -116,7 +116,7 @@ public class UserRepository {
         UserRepository userRepository = new UserRepository(users);
 
         for (int i = 0; i < userRepository.getUsers().length; i++) {
-            if (userRepository.getUsers()[i] == userRepository.findById(user.getId())) {
+            if (user != null && userRepository.getUsers()[i] != null && userRepository.getUsers()[i] == userRepository.findById(user.getId())) {
                 userRepository.getUsers()[i] = user;
                 return userRepository.getUsers()[i];
             }
