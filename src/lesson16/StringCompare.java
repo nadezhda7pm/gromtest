@@ -27,9 +27,6 @@ public class StringCompare {
             System.out.println(Arrays.toString(str.getBytes()));
             System.out.println(new String(str.getBytes()));
 
-
-
-
         }
 
 }
