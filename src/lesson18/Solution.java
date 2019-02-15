@@ -5,11 +5,13 @@ import java.util.Arrays;
 public class Solution {
     public static void main(String[] args) {
         String str1 = new String(" 11 word 1w . 13   15 ");
+        System.out.println(Arrays.toString(findNumbers2(str1)));
+        System.out.println("----------------------------------------");
         System.out.println(Arrays.toString(findNumbers(str1)));
     }
 
 
-    public static int[] findNumbers(String text) {
+    public static int[] findNumbers2(String text) {
         String[] words = text.split(" ");
 
 
@@ -30,6 +32,31 @@ public class Solution {
             } catch (Exception e) {
                 System.out.println("not a number");
             }
+        }return res;
+    }
+
+
+    public static int[] findNumbers(String text) {
+        String[] words = text.split(" ");
+
+        int count = 0;
+        for (String w : words) {
+            if (isNumber(w)) {
+                count++;
+            }
+        }
+
+        int[] res = new int[count];
+        int j = 0;
+
+        for (String w : words) {
+            if (isNumber(w)) {
+                res[j] = Integer.parseInt(w);
+                j++;
+            }else{
+                System.out.println("not a number");
+            }
+
         }return res;
     }
 
