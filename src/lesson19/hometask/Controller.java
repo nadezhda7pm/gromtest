@@ -5,7 +5,12 @@ public class Controller {
 
     public static void put(Storage storage, File file) throws Exception {
         // if storage or file is null
-        if (storage == null || file == null) return;
+        if (storage == null || file == null)
+            try {throw new NullPointerException();
+            }catch (NullPointerException e){
+                System.err.println("Storage or file is null");
+            return;
+            }
 
         // if file format is wrong
         int c = 0;
@@ -17,7 +22,7 @@ public class Controller {
             try {
                 throw new Exception();
             } catch (Exception e) {
-                System.out.println("File " + file.getId() + " format is not acceptable");
+                System.err.println("File " + file.getId() + " format is not acceptable");
                 return;
             }
         }
@@ -26,7 +31,7 @@ public class Controller {
         if (getStorageActualSize(storage) + file.getSize() > storage.getStorageSize()) try {
             throw new Exception();
         } catch (Exception e) {
-            System.out.println("Storage " + storage.getId() + " size is not enough for the putting file " + file.getId());
+            System.err.println("Storage " + storage.getId() + " size is not enough for the putting file " + file.getId());
             return;
         }
 
@@ -37,7 +42,7 @@ public class Controller {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("File with id " + file.getId() + " already exists in the storage");
+            System.err.println("File with id " + file.getId() + " already exists in the storage");
             return;
         }
         for (int i = 0; i < storage.getFiles().length; i++) {
@@ -56,7 +61,6 @@ public class Controller {
                 storage.getFiles()[i] = null;
                 return;
             }
-            //  throw new RuntimeException ("There's no file with id = " + file.getId() + " to delete");
         }
     }
 
@@ -66,7 +70,7 @@ public class Controller {
             if (getStorageActualSize(storageFrom) > storageTo.getStorageSize())
                 throw new Exception();
         } catch (Exception e) {
-            System.out.println("Storage " + storageTo.getId() + " size is not enough for transfer");
+            System.err.println("Storage " + storageTo.getId() + " size is not enough for transfer");
             return;
         }
 
@@ -75,7 +79,7 @@ public class Controller {
             if (storageFrom.getFiles().length > storageTo.getFiles().length)
                 throw new ArrayIndexOutOfBoundsException();
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return;
         }
 
@@ -84,7 +88,7 @@ public class Controller {
                 put(storageTo, storageFrom.getFiles()[i]);
                 return;
             } catch (Exception e) {
-                System.out.println("File with id " + storageFrom.getFiles()[i].getId() + "was not transferred!");
+                System.err.println("File with id " + storageFrom.getFiles()[i].getId() + "was not transferred!");
             }
         }
 
@@ -98,7 +102,7 @@ public class Controller {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("File with id " + id + " not found in storage " + storageFrom.getId());
+            System.err.println("File with id " + id + " not found in storage " + storageFrom.getId());
             return;
         }
 
@@ -108,7 +112,7 @@ public class Controller {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("Storage " + storageTo.getId() + " size is not enough for transferring file " + id);
+            System.err.println("Storage " + storageTo.getId() + " size is not enough for transferring file " + id);
             return;
         }
 
@@ -117,7 +121,7 @@ public class Controller {
                 put(storageTo, getFileById(storageFrom, id));
                 return;
             } catch (Exception e) {
-                System.out.println("File with id " + id + " was not transferred to " + storageFrom.getId());
+                System.err.println("File with id " + id + " was not transferred to " + storageFrom.getId());
             }
         }
 
