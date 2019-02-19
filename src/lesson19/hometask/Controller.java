@@ -101,7 +101,7 @@ public class Controller {
                 put(storageTo, storageFrom.getFiles()[i]);
                 return;
             } catch (Exception e) {
-                System.err.println("File with id " + storageFrom.getFiles()[i].getId() + "was not transferred!");
+                System.err.println("File with id " + storageFrom.getFiles()[i].getId() + "was not transferred to " + storageFrom.getId());
             }
         }
 
