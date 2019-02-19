@@ -17,18 +17,20 @@ public class Demo {
         File file7 = new File(7, "name7", "pdf", 200);
         File file8 = new File(8, "name7", "pdf", 50);
 
+        File[] filesX = new File[5];
+        String[] formatsSupported = {"pgf", "txt", "jpg"};
         File[] files = {file, fileF, file1, file2, file3, null, file4, file5, file6, file7};
 
         System.out.println(file);
         System.out.println(file1);
         System.out.println("_______________________________________");
 
-        Storage storage = new Storage(0, "UK", 10);
-        Storage storage1 = new Storage(1, "UK", 1000);
-        Storage storage2 = new Storage(2, "UK", 900);
-        Storage storage3 = new Storage(3, "UK", 1000);
-        Storage storage4 = new Storage(4, "UK", 1000);
-        Storage storage5 = new Storage(5, "UK", 1000);
+        Storage storage = new Storage(0, filesX, formatsSupported ,"UK", 10);
+        Storage storage1 = new Storage(1, filesX, formatsSupported ,"UK", 1000);
+        Storage storage2 = new Storage(2, filesX, formatsSupported ,"UK", 900);
+        Storage storage3 = new Storage(3, filesX, formatsSupported ,"UK", 1000);
+        Storage storage4 = new Storage(4, filesX, formatsSupported ,"UK", 1000);
+        Storage storage5 = new Storage(5, filesX, formatsSupported ,"UK", 1000);
         Controller controller = new Controller();
 
 
