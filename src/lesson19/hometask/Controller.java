@@ -6,16 +6,18 @@ public class Controller {
     public static void put(Storage storage, File file) throws Exception {
         // if storage or file is null
         if (storage == null || file == null)
-            try {throw new NullPointerException();
-            }catch (NullPointerException e){
-                System.err.println("Storage or file is null");
-            return;
+            try {
+                throw new NullPointerException();
+            } catch (NullPointerException e) {
+                if (storage == null) System.err.println("Storage is null");
+                if (file == null) System.err.println("File is null");
+                return;
             }
 
         // if file format is wrong
         int c = 0;
         for (String format : storage.getFormatsSupported()) {
-            if (file.getFormat() == format)
+            if (file.getFormat().equals(format))
                 c++;
         }
         if (c < 1) {
@@ -65,6 +67,17 @@ public class Controller {
     }
 
     public static void transferAll(Storage storageFrom, Storage storageTo) {
+        // if storageFrom or storageTo is null
+        if (storageFrom == null || storageTo == null)
+            try {
+                throw new NullPointerException();
+            } catch (NullPointerException e) {
+                if (storageFrom == null) System.err.println("StorageFrom is null");
+                if (storageTo == null) System.err.println("StorageTo is null");
+                return;
+            }
+
+
         //StorageTo size is not enough for transfer
         try {
             if (getStorageActualSize(storageFrom) > storageTo.getStorageSize())
@@ -83,7 +96,7 @@ public class Controller {
             return;
         }
 
-        for (int i = 0; i < storageFrom.getFiles().length; i++){
+        for (int i = 0; i < storageFrom.getFiles().length; i++) {
             try {
                 put(storageTo, storageFrom.getFiles()[i]);
                 return;
@@ -98,7 +111,7 @@ public class Controller {
 
         // if there is no file with such id to transfer
         try {
-            if (getFileById(storageFrom, id) == null){
+            if (getFileById(storageFrom, id) == null) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -108,7 +121,7 @@ public class Controller {
 
         //StorageTo actual size is not enough for transfer
         try {
-            if ((getStorageActualSize(storageTo) + getFileById(storageFrom,id).getSize()) > storageTo.getStorageSize()){
+            if ((getStorageActualSize(storageTo) + getFileById(storageFrom, id).getSize()) > storageTo.getStorageSize()) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -116,7 +129,7 @@ public class Controller {
             return;
         }
 
-        for (int i = 0; i < storageTo.getFiles().length; i++){
+        for (int i = 0; i < storageTo.getFiles().length; i++) {
             try {
                 put(storageTo, getFileById(storageFrom, id));
                 return;
