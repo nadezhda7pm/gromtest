@@ -2,7 +2,7 @@ package lesson11.biginterfaceexample;
 
 public class SimpleReader implements Readable {
 
-    //Class object = new
+    //RunTimeExceptionExample object = new
     //object.x
     //null - empty object
 
