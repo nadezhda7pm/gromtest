@@ -41,7 +41,7 @@ public class Demo {
             try {
                 controller.put(storage1, f);
             } catch (Exception e) {
-                e.printStackTrace();
+                e.getMessage();
             }
         }
         System.out.println(Arrays.deepToString(storage1.getFiles()));
@@ -50,7 +50,7 @@ public class Demo {
             try {
                 controller.put(storage2, f);
             } catch (Exception e) {
-                e.printStackTrace();
+                e.getMessage();
             }
         System.out.println(Arrays.deepToString(storage2.getFiles()));
         System.out.println("_______________________________________");
@@ -80,14 +80,14 @@ public class Demo {
         try {
             controller.transferAll(storage1, storage3);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage3" + Arrays.toString(storage3.getFiles()));
 
         try {
             controller.transferAll(storage1, storage2);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage2" + Arrays.toString(storage2.getFiles()));
 
@@ -97,28 +97,28 @@ public class Demo {
         try {
             controller.transferFile(storage1, storage5, 3);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
         try {
             controller.transferFile(storage2, storage5, 3);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
         try {
             controller.transferFile(storage1, storage5, 1);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
         try {
             controller.transferFile(storage1, storage5, 10);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
@@ -126,28 +126,28 @@ public class Demo {
         try {
             controller.transferFile(storage1, storage5, 4);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
         try {
             controller.transferFile(storage1, storage5, 5);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
         try {
             controller.transferFile(storage1, storage5, 7);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
         try {
             controller.transferFile(storage2, storage5, 8);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
@@ -161,14 +161,14 @@ public class Demo {
         try {
             controller.transferAll(storage7, storage6);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage6" + Arrays.toString(storage6.getFiles()));
 
         try {
             controller.transferAll(storage6, storage7);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("storage7" + Arrays.toString(storage7.getFiles()));
     }

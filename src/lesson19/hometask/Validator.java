@@ -2,6 +2,23 @@ package lesson19.hometask;
 
 
 public class Validator {
+    public static boolean validationForPut(Storage storage, File file) throws Exception {
+        boolean validationForPut = false;
+        validateFileForNULL(file);
+        validateStorageForNULL(storage);
+        // if file format is wrong
+        validateFileFormat(storage, file);
+        // if storage size is not enough for the putting file
+        validateStorageSizeForFile(storage, file);
+        // if file exists in the storage
+        validateFilePresent (storage, file);
+        validationForPut = true;
+        return validationForPut;
+    }
+
+
+
+
     public static void validateStorageSizeForFile(Storage storage, File file) throws Exception {
         if (getStorageActualSize(storage) + file.getSize() > storage.getStorageSize())
             throw new Exception("Storage " + storage.getId() + " size is not enough for the putting file " + file.getId());

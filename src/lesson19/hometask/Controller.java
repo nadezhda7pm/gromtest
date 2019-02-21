@@ -6,26 +6,16 @@ public class Controller {
 
     public static void put(Storage storage, File file) throws Exception {
 
-        // if storage or file is null
-        validateFileForNULL(file);
-        validateStorageForNULL(storage);
-
-        // if file format is wrong
-        validateFileFormat(storage, file);
-
-        // if storage size is not enough for the putting file
-        validateStorageSizeForFile(storage, file);
-
-        // if file exists in the storage
-        validateFilePresent (storage, file);
-
-        for (int i = 0; i < storage.getFiles().length; i++) {
-            if (storage.getFiles()[i] == null) {
-                storage.getFiles()[i] = file;
-                return;
+        if (validationForPut(storage, file)) {
+            for (int i = 0; i < storage.getFiles().length; i++) {
+                if (storage.getFiles()[i] == null) {
+                    storage.getFiles()[i] = file;
+                    return;
+                }
             }
         }
     }
+
 
     public static void delete(Storage storage, File file) {
         for (int i = 0; i < storage.getFiles().length; i++) {
