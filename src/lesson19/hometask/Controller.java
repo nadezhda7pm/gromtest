@@ -5,8 +5,16 @@ import static lesson19.hometask.Validator.*;
 public class Controller {
 
     public static void put(Storage storage, File file) throws Exception {
+        // if file or storage is null
+        validateFileForNULL(file);
+        validateStorageForNULL(storage);
+        // if file exists in the storage
+        validateFilePresent(storage, file);
+        // if file format is wrong
+        validateFileFormat(storage, file);
+        // if storage size is not enough for the putting file
+        validateStorageSizeForFile(storage, file);
 
-        if (validationForPut(storage, file)) {
             for (int i = 0; i < storage.getFiles().length; i++) {
                 if (storage.getFiles()[i] == null) {
                     storage.getFiles()[i] = file;
@@ -14,7 +22,6 @@ public class Controller {
                 }
             }
         }
-    }
 
 
     public static void delete(Storage storage, File file) {
@@ -67,24 +74,7 @@ public class Controller {
 
 
 //    Validation___________________________________________________
-
-    private static boolean validationForPut(Storage storage, File file) throws Exception {
-        boolean validationForPut = false;
-        validateFileForNULL(file);
-        validateStorageForNULL(storage);
-        // if file format is wrong
-        validateFileFormat(storage, file);
-        // if storage size is not enough for the putting file
-        validateStorageSizeForFile(storage, file);
-        // if file exists in the storage
-        validateFilePresent (storage, file);
-        validationForPut = true;
-        return validationForPut;
-    }
-
-
-
-
+    
     private static void validateStorageSizeForFile(Storage storage, File file) throws Exception {
         if (getStorageActualSize(storage) + file.getSize() > storage.getStorageSize())
             throw new Exception("Storage " + storage.getId() + " size is not enough for the putting file " + file.getId());
