@@ -18,13 +18,16 @@ public class Demo {
         File file8 = new File(8, "name7", "pdf", 50);
 
         File[] filesX = new File[5];
-        String[] formatsSupported = {"pgf", "txt", "jpg"};
+        String[] formatsSupported = {"pdf", "txt", "jpg"};
         File[] files = {file, fileF, file1, file2, file3, null, file4, file5, file6, file7};
+        File[] filesA = {file1, file3, null, file4, file5};
+        File[] filesB = {file1, file3, file5, file6, file7};
 
-        System.out.println(file);
-        System.out.println(file1);
-        System.out.println("_______________________________________");
 
+//        System.out.println(file);
+//        System.out.println(file1);
+//        System.out.println("_______________________________________");
+//
         Storage storage = new Storage(0, filesX, formatsSupported ,"UK", 10);
         Storage storage1 = new Storage(1, filesX, formatsSupported ,"UK", 1000);
         Storage storage2 = new Storage(2, filesX, formatsSupported ,"UK", 900);
@@ -32,84 +35,95 @@ public class Demo {
         Storage storage4 = new Storage(4, filesX, formatsSupported ,"UK", 1000);
         Storage storage5 = new Storage(5, filesX, formatsSupported ,"UK", 1000);
         Controller controller = new Controller();
+//
+//
+//        for (File f : files) {
+//            try {
+//                controller.put(storage1, f);
+//            } catch (Exception e) {
+//                System.out.println("File with id " + f.getId() + "was not transferred!");
+//            }
+//        }
+//        System.out.println(Arrays.deepToString(storage1.getFiles()));
+//
+//        for (File f : files) {
+//            try {
+//                controller.put(storage2, f);
+//            } catch (Exception e) {
+//                System.out.println("File with id " + f.getId() + "was not transferred!");
+//            }
+//        }
+//        System.out.println(Arrays.deepToString(storage2.getFiles()));
+//        System.out.println("_______________________________________");
+//
+//
+//
+//
+//        controller.delete(storage1, file6);
+//        System.out.println(Arrays.deepToString(storage1.getFiles()));
+//
+//        controller.delete(storage2, file6);
+//        System.out.println(Arrays.deepToString(storage2.getFiles()));
+//        System.out.println("_______________________________________");
+//
+//
+//        try {
+//            controller.put(storage1, file7);
+//        } catch (Exception e) {
+//            System.out.println("File with id " + file7.getId() + "was not transferred!");
+//        }
+//        try {
+//            controller.put(storage2, file8);
+//        } catch (Exception e) {
+//            System.out.println("File with id " + file7.getId() + "was not transferred!");
+//        }
+//
+//        controller.transferAll(storage1, storage3);
+//        System.out.println("storage3" + Arrays.toString(storage3.getFiles()));
+//
+//        controller.transferAll(storage1, storage2);
+//        System.out.println("storage2" + Arrays.toString(storage2.getFiles()));
+//
+//
+//        System.out.println("TRANSFER FILE_______________________________________");
+//
+//        controller.transferFile(storage1, storage5, 3);
+//        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+//
+//        controller.transferFile(storage2, storage5, 3);
+//        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+//
+//        controller.transferFile(storage1, storage5, 1);
+//        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+//
+//        controller.transferFile(storage1, storage5, 10);
+//        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+//
+//
+//        controller.transferFile(storage1, storage5, 4);
+//        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+//
+//        controller.transferFile(storage1, storage5, 5);
+//        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+//
+//        controller.transferFile(storage1, storage5, 7);
+//        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+//
+//        controller.transferFile(storage2, storage5, 8);
+//        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
 
-        for (File f : files) {
-            try {
-                controller.put(storage1, f);
-            } catch (Exception e) {
-                System.out.println("File with id " + f.getId() + "was not transferred!");
-            }
-        }
-        System.out.println(Arrays.deepToString(storage1.getFiles()));
+        Storage storage6 = new Storage(6, filesA, formatsSupported, "UA", 3000);
+        Storage storage7 = new Storage(7, filesX, formatsSupported, "SK", 3000);
 
-        for (File f : files) {
-            try {
-                controller.put(storage2, f);
-            } catch (Exception e) {
-                System.out.println("File with id " + f.getId() + "was not transferred!");
-            }
-        }
-        System.out.println(Arrays.deepToString(storage2.getFiles()));
-        System.out.println("_______________________________________");
+        Storage storage8 = null;
+        Storage storage9 = null;
 
+        controller.transferAll(storage7, storage6);
+        System.out.println("storage6" + Arrays.toString(storage6.getFiles()));
 
-
-
-        controller.delete(storage1, file6);
-        System.out.println(Arrays.deepToString(storage1.getFiles()));
-
-        controller.delete(storage2, file6);
-        System.out.println(Arrays.deepToString(storage2.getFiles()));
-        System.out.println("_______________________________________");
-
-
-        try {
-            controller.put(storage1, file7);
-        } catch (Exception e) {
-            System.out.println("File with id " + file7.getId() + "was not transferred!");
-        }
-        try {
-            controller.put(storage2, file8);
-        } catch (Exception e) {
-            System.out.println("File with id " + file7.getId() + "was not transferred!");
-        }
-
-        controller.transferAll(storage1, storage3);
-        System.out.println("storage3" + Arrays.toString(storage3.getFiles()));
-
-        controller.transferAll(storage1, storage2);
-        System.out.println("storage2" + Arrays.toString(storage2.getFiles()));
-
-
-        System.out.println("TRANSFER FILE_______________________________________");
-
-        controller.transferFile(storage1, storage5, 3);
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        controller.transferFile(storage2, storage5, 3);
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        controller.transferFile(storage1, storage5, 1);
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        controller.transferFile(storage1, storage5, 10);
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-
-        controller.transferFile(storage1, storage5, 4);
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        controller.transferFile(storage1, storage5, 5);
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        controller.transferFile(storage1, storage5, 7);
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        controller.transferFile(storage2, storage5, 8);
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-
+        controller.transferAll(storage6, storage7);
+        System.out.println("storage7" + Arrays.toString(storage7.getFiles()));
 
 
     }

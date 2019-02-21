@@ -68,8 +68,8 @@ public class Controller {
 
     public static void transferAll(Storage storageFrom, Storage storageTo) {
         // if storageFrom or storageTo is null
+        try {
         if (storageFrom == null || storageTo == null)
-            try {
                 throw new NullPointerException();
             } catch (NullPointerException e) {
                 if (storageFrom == null) System.err.println("StorageFrom is null");
@@ -99,9 +99,8 @@ public class Controller {
         for (int i = 0; i < storageFrom.getFiles().length; i++) {
             try {
                 put(storageTo, storageFrom.getFiles()[i]);
-                return;
             } catch (Exception e) {
-                System.err.println("File with id " + storageFrom.getFiles()[i].getId() + "was not transferred to " + storageFrom.getId());
+                System.err.println("File with id " + storageFrom.getFiles()[i].getId() + "was not transferred to " + storageTo.getId());
             }
         }
 
@@ -134,7 +133,7 @@ public class Controller {
                 put(storageTo, getFileById(storageFrom, id));
                 return;
             } catch (Exception e) {
-                System.err.println("File with id " + id + " was not transferred to " + storageFrom.getId());
+                System.err.println("File with id " + id + " was not transferred to " + storageTo.getId());
             }
         }
 
