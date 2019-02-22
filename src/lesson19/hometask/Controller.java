@@ -1,27 +1,34 @@
 package lesson19.hometask;
 
-import static lesson19.hometask.Validator.*;
 
 public class Controller {
 
-    public static void put(Storage storage, File file) throws Exception {
-        // if file or storage is null
-        validateFileForNULL(file);
-        validateStorageForNULL(storage);
-        // if file exists in the storage
-        validateFilePresent(storage, file);
+    public static File put(Storage storage, File file) throws Exception {
+        // if file or storage is null+
+        if (storage == null || file == null)
+            try {
+                throw new Exception();
+            } catch (Exception e) {
+                if (storage == null) System.out.println("Storage is null");
+                if (file == null) System.out.println("File is null");
+                return null;
+            }
+
         // if file format is wrong
         validateFileFormat(storage, file);
         // if storage size is not enough for the putting file
         validateStorageSizeForFile(storage, file);
+        // if file exists in the storage
+        filePresent(storage, file.getId());
 
-            for (int i = 0; i < storage.getFiles().length; i++) {
-                if (storage.getFiles()[i] == null) {
-                    storage.getFiles()[i] = file;
-                    return;
-                }
+        for (int i = 0; i < storage.getFiles().length; i++) {
+            if (storage.getFiles()[i] == null) {
+                storage.getFiles()[i] = file;
+                return storage.getFiles()[i];
             }
         }
+        return null;
+    }
 
 
     public static void delete(Storage storage, File file) {
@@ -48,7 +55,7 @@ public class Controller {
             try {
                 put(storageTo, storageFrom.getFiles()[i]);
             } catch (Exception e) {
-                System.err.println("File with id " + storageFrom.getFiles()[i].getId() + "was not transferred to " + storageTo.getId()  + " Reason: " + e.getMessage());
+                System.out.println("ALL: File with id " + storageFrom.getFiles()[i].getId() + "was not transferred to " + storageTo.getId() + " Reason: " + e.getMessage());
             }
         }
 
@@ -57,7 +64,7 @@ public class Controller {
     public static void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
 
         // if there is no file with such id to transfer
-        validateFilePresentInStorageFrom(storageFrom, id);
+        filePresent(storageFrom, id);
 
         //StorageTo actual size is not enough for transfer
         validateStorageSizeForStorage(storageFrom, storageTo, id);
@@ -67,14 +74,14 @@ public class Controller {
                 put(storageTo, getFileById(storageFrom, id));
                 return;
             } catch (Exception e) {
-                System.err.println("File with id " + id + " was not transferred to " + storageTo.getId() + "Reason: " + e.getMessage() + " Reason: " + e.getMessage());
+                System.out.println("FILE: File with id " + id + " was not transferred to storage" + storageTo.getId() + " Reason: " + e.getMessage() + " Reason: " + e.getMessage());
             }
         }
     }
 
 
 //    Validation___________________________________________________
-    
+
     private static void validateStorageSizeForFile(Storage storage, File file) throws Exception {
         if (getStorageActualSize(storage) + file.getSize() > storage.getStorageSize())
             throw new Exception("Storage " + storage.getId() + " size is not enough for the putting file " + file.getId());
@@ -91,21 +98,11 @@ public class Controller {
     }
 
     private static void validateFileFormat(Storage storage, File file) throws Exception {
-        int c = 0;
         for (String format : storage.getFormatsSupported()) {
-            if (file.getFormat().equals(format))
-                c++;
+            if (format.equals(file.getFormat()))
+                return;
         }
-        if (c < 1) throw new Exception("File " + file.getId() + " format is not acceptable");
-    }
-
-    private static void validateFilePresent(Storage storage, File file) throws Exception {
-        if (filePresent(storage, file))
-            throw new Exception("File with id " + file.getId() + " already exists in the storage");
-    }
-
-    private static void validateFileForNULL(File file) throws Exception {
-        if (file == null) throw new Exception("File is null");
+        throw new Exception("File " + file.getId() + " format is not acceptable");
     }
 
     private static void validateStorageForNULL(Storage storage) throws Exception {
@@ -116,14 +113,6 @@ public class Controller {
         if (storageFrom.getFiles().length > storageTo.getFiles().length)
             throw new ArrayIndexOutOfBoundsException("FilesArray length in storageTo is not enough for transfer");
     }
-
-    private static void validateFilePresentInStorageFrom(Storage storageFrom, long id) throws Exception {
-        if (getFileById(storageFrom, id) == null)
-            throw new Exception("File with id " + id + " not found in storage " + storageFrom.getId() + " Reason: " );
-    }
-
-
-
 
     private static File getFileById(Storage storage, long id) {
         File foundFile = null;
@@ -143,12 +132,11 @@ public class Controller {
         return storageActualSize;
     }
 
-    private static boolean filePresent(Storage storage, File file) {
-        boolean filePresent = false;
+    private static void filePresent(Storage storage, long id) throws Exception {
+
         for (File f : storage.getFiles()) {
-            if (f != null && f.getId() == file.getId())
-                filePresent = true;
+            if (f != null && f.getId() == id)
+                throw new Exception("File with id " + id + " already exists in the storage");
         }
-        return filePresent;
     }
 }

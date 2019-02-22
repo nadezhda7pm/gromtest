@@ -8,13 +8,9 @@ public class File {
     private String format;
     private long size;
 
-    public File(long id, String name, String format, long size) {
+    public File(long id, String name, String format, long size) throws Exception {
         if (name.length() > 10){
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                System.out.println("File " + id + " has a name longer that 10 characters and so cannot be created");
-            }
+                throw new Exception("File " + id + " has a name longer that 10 characters and so cannot be created");
         }else {
             this.id = id;
             this.name = name;
