@@ -93,24 +93,36 @@ public class Demo {
 
 
 
-        for (File f : filesA) {
-            try {
-                controller2.put(storage4, f);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        System.out.println("storage4" + Arrays.deepToString(storage4.getFiles()));
+//        for (File f : filesA) {
+//            try {
+//                controller2.put(storage4, f);
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//        System.out.println("storage4" + Arrays.deepToString(storage4.getFiles()));
 
 
         for (File f : files) {
             try {
-                controller.put(storage1, f);
+                System.out.println(controller.put(storage1, f));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
         System.out.println("storage1" + Arrays.deepToString(storage1.getFiles()));
+
+        try {
+            controller.put(storage1, file5);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            controller.filePresent(storage1,4);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println("_______________________________________");
 
@@ -197,6 +209,7 @@ public class Demo {
         System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
 
         try {
+
             controller.transferFile(storage1, storage5, 7);
         } catch (Exception e) {
             System.out.println(e.getMessage());
