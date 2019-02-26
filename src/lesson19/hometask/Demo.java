@@ -81,6 +81,8 @@ public class Demo {
         System.out.println("_______________________________________");
 
 
+
+
         Storage storage = new Storage(0, filesX, formatsSupported ,"UK", 10);
         Storage storage1 = new Storage(1, filesX, formatsSupported ,"UK", 1000);
         Storage storage2 = new Storage(2, filesX, formatsSupported ,"UK", 300);
@@ -119,7 +121,7 @@ public class Demo {
         }
 
         try {
-            controller.filePresent(storage1,4);
+            controller.filePresent(storage1,file4);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -148,87 +150,95 @@ public class Demo {
             System.out.println("File with id " + file7.getId() + "was not transferred!");
         }
 
-        try {
-            controller.transferAll(storage1, storage3);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("storage3" + Arrays.toString(storage3.getFiles()));
-
-        try {
-            controller.transferAll(storage1, storage2);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("storage2" + Arrays.toString(storage2.getFiles()));
+//        try {
+//            controller.transferAll(storage1, storage3);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        System.out.println("storage3" + Arrays.toString(storage3.getFiles()));
+//
+//        try {
+//            controller.transferAll(storage1, storage2);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        System.out.println("storage2" + Arrays.toString(storage2.getFiles()));
 
 
         System.out.println("TRANSFER FILE_______________________________________");
 
-        try {
-            controller.transferFile(storage1, storage5, 3);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        try {
-            controller.transferFile(storage2, storage5, 3);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        try {
-            controller.transferFile(storage1, storage5, 1);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
-
-        try {
-            controller.transferFile(storage1, storage5, 10);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+        System.out.println("storage1" + Arrays.toString(storage1.getFiles()));
+        File[] filesZ = new File[6];
+        Storage storage22 = new Storage(22, filesZ, formatsSupported ,"UK", 10000);
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
 
 
         try {
-            controller.transferFile(storage1, storage5, 4);
+            controller.transferFile(storage1, storage22, 3);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
 
         try {
-            controller.transferFile(storage1, storage5, 5);
+            controller.transferFile(storage2, storage22, 3);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
+
+        try {
+            controller.transferFile(storage1, storage22, 1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
+
+        try {
+            controller.transferFile(storage1, storage22, 10);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
+
+
+        try {
+            controller.transferFile(storage1, storage22, 4);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
+
+        try {
+            controller.transferFile(storage1, storage22, 5);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
 
         try {
 
-            controller.transferFile(storage1, storage5, 7);
+            controller.transferFile(storage1, storage22, 7);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
 
         try {
-            controller.transferFile(storage2, storage5, 8);
+            controller.transferFile(storage2, storage22, 8);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("storage5" + Arrays.toString(storage5.getFiles()));
+        System.out.println("storage22" + Arrays.toString(storage22.getFiles()));
 
+        System.out.println("TRANSFER ALL_______________________________________");
 
         Storage storage6 = new Storage(6, filesA, formatsSupported, "UA", 3000);
         Storage storage7 = new Storage(7, filesX, formatsSupported, "SK", 3000);
 
-        Storage storage8 = null;
+        Storage storage8 = new Storage(8, filesX, formatsSupported, "SK", 3000);
         Storage storage9 = null;
+        System.out.println("storage8" + Arrays.toString(storage8.getFiles()));
 
         try {
             controller.transferAll(storage7, storage6);
@@ -238,11 +248,11 @@ public class Demo {
         System.out.println("storage6" + Arrays.toString(storage6.getFiles()));
 
         try {
-            controller.transferAll(storage6, storage7);
+            controller.transferAll(storage6, storage8);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("storage7" + Arrays.toString(storage7.getFiles()));
+        System.out.println("storage8" + Arrays.toString(storage8.getFiles()));
     }
 
 }
