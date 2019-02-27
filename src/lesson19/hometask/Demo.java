@@ -121,7 +121,7 @@ public class Demo {
         }
 
         try {
-            controller.filePresent(storage1,file4);
+            controller.filePresent(storage1,file4.getId());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
