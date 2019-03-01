@@ -12,7 +12,7 @@ public class Controller {
         return transactionDAO.save(transaction);
     }
 
-    public Transaction[] transactionList (){
+    public Transaction[] transactionList () throws BadRequestException{
 
         return transactionDAO.transactionList();
     }

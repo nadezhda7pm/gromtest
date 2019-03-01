@@ -29,7 +29,11 @@ public class Demo {
 
         Controller controller = new Controller();
 
-        System.out.println(Arrays.toString(controller.transactionList()));
+        try {
+            System.out.println(Arrays.toString(controller.transactionList()));
+        } catch (BadRequestException e) {
+            System.out.println(e.getMessage());
+        }
         try {
             System.out.println(Arrays.toString(controller.transactionList("Odessa")));
         } catch (BadRequestException e) {
@@ -46,8 +50,13 @@ public class Demo {
             }
 
         }
-        System.out.println(Arrays.toString(controller.transactionList()));
-        System.out.println(Arrays.toString(controller.transactionList()));
+
+        try {
+            System.out.println(Arrays.toString(controller.transactionList()));
+        } catch (BadRequestException e) {
+            System.out.println(e.getMessage());
+        }
+
 
         try {
             System.out.println(Arrays.toString(controller.transactionList("Odessa")));
