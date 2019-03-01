@@ -11,7 +11,7 @@ public class Demo {
 
         Transaction transaction1 = new Transaction(1, "Kiev", 5, "des1", TransactionType.INCOME, new Date());
         Transaction transaction111 = new Transaction(1, "Kiev", 5, "des1", TransactionType.INCOME, new Date());
-        Transaction transaction1111 = new Transaction(1111, "Kiev", 70, "des1", TransactionType.INCOME, new Date());
+        Transaction transaction1111 = new Transaction(1111, "Odessa", 41, "des1", TransactionType.INCOME, new Date());
         Transaction transaction2 = new Transaction(2, "Odessa", 5, "des2", TransactionType.OUTCOME, new Date());
         Transaction transaction22 = new Transaction(22, "Lvov", 10, "des6", TransactionType.INCOME, new Date());
         Transaction transaction3 = new Transaction(3, "Kiev", 10, "des3", TransactionType.INCOME, new Date());
@@ -24,12 +24,17 @@ public class Demo {
         Transaction transaction10 = new Transaction(10, "Kiev", 5, "des6", TransactionType.INCOME, new Date());
         Transaction transaction11 = new Transaction(11, "Kiev", 5, "des6", TransactionType.INCOME, new Date());
 
-        Transaction[] ts = {transaction1, transaction111,transaction1111, transaction2, transaction22, transaction3,
+        Transaction[] ts = {transaction1, transaction111, transaction1111, transaction2, transaction22, transaction3,
                 transaction4, transaction5, transaction6, transaction7, transaction8, transaction9, transaction10, transaction11};
 
         Controller controller = new Controller();
 
         System.out.println(Arrays.toString(controller.transactionList()));
+        try {
+            System.out.println(Arrays.toString(controller.transactionList("Odessa")));
+        } catch (BadRequestException e) {
+            System.out.println(e.getMessage());
+        }
 
         for (Transaction t : ts) {
             try {
@@ -43,13 +48,27 @@ public class Demo {
         }
         System.out.println(Arrays.toString(controller.transactionList()));
         System.out.println(Arrays.toString(controller.transactionList()));
+
         try {
             System.out.println(Arrays.toString(controller.transactionList("Odessa")));
         } catch (BadRequestException e) {
             System.out.println(e.getMessage());
         }
+
         try {
             System.out.println(Arrays.toString(controller.transactionList(10)));
+        } catch (BadRequestException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            System.out.println(Arrays.toString(controller.transactionList("Vinnytsya")));
+        } catch (BadRequestException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            System.out.println(Arrays.toString(controller.transactionList(9000)));
         } catch (BadRequestException e) {
             System.out.println(e.getMessage());
         }

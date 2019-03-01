@@ -21,4 +21,5 @@ public class Utils {
     public String[] getCities() {
         return cities;
     }
+
 }
