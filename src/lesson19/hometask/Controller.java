@@ -37,6 +37,7 @@ public class Controller {
                 for (File sToFile : storageTo.getFiles()) {
                     if (sToFile == null) {
                         storageTo.getFiles()[i] = sFromFile;
+                        break;
                     }
                     i++;
                 }
