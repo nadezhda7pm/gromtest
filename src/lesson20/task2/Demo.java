@@ -41,9 +41,18 @@ public class Demo {
             }
 
         }
-
         System.out.println(Arrays.toString(controller.transactionList()));
-
+        System.out.println(Arrays.toString(controller.transactionList()));
+        try {
+            System.out.println(Arrays.toString(controller.transactionList("Odessa")));
+        } catch (BadRequestException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            System.out.println(Arrays.toString(controller.transactionList(10)));
+        } catch (BadRequestException e) {
+            System.out.println(e.getMessage());
+        }
 
 
     }

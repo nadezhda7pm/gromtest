@@ -77,18 +77,20 @@ public class TransactionDAO {
         return transactions;
     }
 
-    public Transaction[] transactionList(String city) {
+    public Transaction[] transactionList(String city) throws BadRequestException {
         int count = 0;
         for (Transaction t : transactions){
-            if (t.getCity().equals(city))
+            if ( t!= null && t.getCity().equals(city))
                 count++;
         }
+
+        if (count <= 0) throw new BadRequestException("No transactions found with city " + city);
 
         Transaction[] transactionsWithProperCity = new Transaction[count];
         int i = 0;
         int j = 0;
         for (Transaction t : transactions){
-            if (t.getCity().equals(city)){
+            if (t!= null && t.getCity().equals(city)){
                 transactionsWithProperCity[j] = transactions[i];
                 j++;
             }
@@ -98,18 +100,19 @@ public class TransactionDAO {
     }
 
 
-    public Transaction[] transactionList(int amount) {
+    public Transaction[] transactionList(int amount) throws  BadRequestException{
         int count = 0;
         for (Transaction t : transactions){
-            if (t.getAmount() == amount)
+            if (t!= null && t.getAmount() == amount)
                 count++;
         }
+        if (count <= 0) throw new BadRequestException("No transactions found with city " + amount);
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
         int i = 0;
         int j = 0;
         for (Transaction t : transactions){
-            if (t.getAmount() == amount){
+            if (t!= null && t.getAmount() == amount){
                 transactionsWithProperAmount[j] = transactions[i];
                 j++;
             }
