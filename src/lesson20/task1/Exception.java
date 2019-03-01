@@ -1,4 +1,4 @@
-package lesson20.task2;
+package lesson20.task1;
 
 public class Exception {
 }
