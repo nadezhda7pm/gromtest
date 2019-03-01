@@ -33,11 +33,12 @@ public class TransactionDAO {
             throw new LimitExceeded("Transaction limit exceeded " + transaction.getId() + ". Can't be saved");
 
         int a = 0;
-        for (Transaction tr : transactions){
+        for (Transaction tr : transactions) {
             if (tr != null && tr.getId() == transaction.getId())
                 a++;
         }
-        if (a > 0) throw new InternalServerException("Transaction with the following id already exists: " + transaction.getId());
+        if (a > 0)
+            throw new InternalServerException("Transaction with the following id already exists: " + transaction.getId());
 
 
         int sum = 0;
@@ -72,16 +73,22 @@ public class TransactionDAO {
     }
 
 
-    public Transaction[] transactionList() {
+    public Transaction[] transactionList() throws BadRequestException {
 
+        int count = 0;
+        for (Transaction t : transactions) {
+            if (t == null)
+                count++;
+        }
+        if (count == transactions.length) throw new BadRequestException("Transactions list  is empty");
         return transactions;
     }
 
-    public Transaction[] transactionList(String city) throws BadRequestException{
+    public Transaction[] transactionList(String city) throws BadRequestException {
         int count = 0;
         int c = 0;
-        for (Transaction t : transactions){
-            if ( t!= null && t.getCity().equals(city))
+        for (Transaction t : transactions) {
+            if (t != null && t.getCity().equals(city))
                 count++;
             if (t == null)
                 c++;
@@ -94,21 +101,21 @@ public class TransactionDAO {
         Transaction[] transactionsWithProperCity = new Transaction[count];
         int i = 0;
         int j = 0;
-        for (Transaction t : transactions){
-            if (t!= null && t.getCity().equals(city)){
+        for (Transaction t : transactions) {
+            if (t != null && t.getCity().equals(city)) {
                 transactionsWithProperCity[j] = transactions[i];
                 j++;
             }
-                i++;
+            i++;
         }
         return transactionsWithProperCity;
     }
 
 
-    public Transaction[] transactionList(int amount) throws  BadRequestException{
+    public Transaction[] transactionList(int amount) throws BadRequestException {
         int count = 0;
-        for (Transaction t : transactions){
-            if (t!= null && t.getAmount() == amount)
+        for (Transaction t : transactions) {
+            if (t != null && t.getAmount() == amount)
                 count++;
         }
         if (count <= 0) throw new BadRequestException("No transactions found with amount " + amount);
@@ -116,8 +123,8 @@ public class TransactionDAO {
         Transaction[] transactionsWithProperAmount = new Transaction[count];
         int i = 0;
         int j = 0;
-        for (Transaction t : transactions){
-            if (t!= null && t.getAmount() == amount){
+        for (Transaction t : transactions) {
+            if (t != null && t.getAmount() == amount) {
                 transactionsWithProperAmount[j] = transactions[i];
                 j++;
             }
