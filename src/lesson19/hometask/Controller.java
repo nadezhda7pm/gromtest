@@ -31,18 +31,19 @@ public class Controller {
 
         validateAll(storageFrom, storageTo);
 
-        int i = 0;
         for (File sFromFile : storageFrom.getFiles()) {
             if (sFromFile != null) {
+                int i = 0;
                 for (File sToFile : storageTo.getFiles()) {
                     if (sToFile == null) {
                         storageTo.getFiles()[i] = sFromFile;
                         break;
-                    }
-                    i++;
+                    } else i++;
+
                 }
             }
         }
+
 
     }
 
