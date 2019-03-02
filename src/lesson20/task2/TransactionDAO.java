@@ -41,7 +41,8 @@ public class TransactionDAO {
             if (tr != null && tr.getId() == transaction.getId())
                 a++;
         }
-        if(a > 0) throw new InternalServerException("Transaction with the following id already exists: " + transaction.getId());
+        if (a > 0)
+            throw new InternalServerException("Transaction with the following id already exists: " + transaction.getId());
 
         int sum = 0;
         int count = 0;
@@ -55,7 +56,7 @@ public class TransactionDAO {
         if (sum + transaction.getAmount() > utils.getLimitTransactionsPerDayAmount())
             throw new LimitExceeded("Transaction limit per day amount exceeded " + transaction.getId() + ". Can't be saved");
 
-        if (count >= utils.getLimitTransactionsPerDayCount())
+        if (count > utils.getLimitTransactionsPerDayCount())
             throw new LimitExceeded("Transaction limit per day count exceeded " + transaction.getId() + ". Can't be saved");
 
 
@@ -138,12 +139,8 @@ public class TransactionDAO {
             if (t == null)
                 c++;
         }
-        if (c == (transactions.length + 1)) throw new
-
-                BadRequestException("Transactions list empty");
-        if (count <= 0) throw new
-
-                BadRequestException("No transactions found with amount " + amount);
+        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
+        if (count <= 0) throw new BadRequestException("No transactions found with amount " + amount);
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
         int i = 0;
