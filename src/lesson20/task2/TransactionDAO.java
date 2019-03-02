@@ -85,15 +85,10 @@ public class TransactionDAO {
 
     public Transaction[] transactionList(String city) throws BadRequestException {
         int count = 0;
-        int c = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getCity().equals(city))
                 count++;
-            if (t == null)
-                c++;
         }
-
-        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
         if (count <= 0) throw new BadRequestException("No transactions found with city " + city);
 
 
@@ -113,14 +108,10 @@ public class TransactionDAO {
 
     public Transaction[] transactionList(int amount) throws BadRequestException {
         int count = 0;
-        int c = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getAmount() == amount)
                 count++;
-            if (t == null)
-                c++;
         }
-        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
         if (count <= 0) throw new BadRequestException("No transactions found with amount " + amount);
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
