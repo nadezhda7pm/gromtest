@@ -92,7 +92,8 @@ public class TransactionDAO {
                 a++;
             }
         }
-        if (a < 1) throw new BadRequestException("City " + city + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
+        if (a < 1)
+            throw new BadRequestException("City " + city + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
 
 
         int count = 0;
@@ -123,6 +124,10 @@ public class TransactionDAO {
 
 
     public Transaction[] transactionList(int amount) throws BadRequestException {
+
+        if (0 >= amount || amount > utils.getLimitSimpleTransactionAmount())
+            throw new BadRequestException("Amount " + amount + " is not allowed amount for a simple transaction. Max allowed transaction amount is " + utils.getLimitSimpleTransactionAmount());
+
         int count = 0;
         int c = 0;
         for (Transaction t : transactions) {
@@ -131,8 +136,12 @@ public class TransactionDAO {
             if (t == null)
                 c++;
         }
-        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
-        if (count <= 0) throw new BadRequestException("No transactions found with amount " + amount);
+        if (c == (transactions.length + 1)) throw new
+
+                BadRequestException("Transactions list empty");
+        if (count <= 0) throw new
+
+                BadRequestException("No transactions found with amount " + amount);
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
         int i = 0;
