@@ -30,6 +30,13 @@ public class Demo {
         Controller controller = new Controller();
 
         try {
+            controller.transactionList();
+        } catch (BadRequestException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        try {
             System.out.println(Arrays.toString(controller.transactionList()));
         } catch (BadRequestException e) {
             System.out.println(e.getMessage());

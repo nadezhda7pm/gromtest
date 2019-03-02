@@ -4,6 +4,7 @@ import lesson20.task2.exceptions.BadRequestException;
 import lesson20.task2.exceptions.InternalServerException;
 import lesson20.task2.exceptions.LimitExceeded;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,7 +31,7 @@ public class TransactionDAO {
         return transactions[i];
     }
 
-    private void validate(Transaction transaction) throws BadRequestException, InternalServerException, LimitExceeded {
+    private void validate(Transaction transaction) throws BadRequestException, InternalServerException {
 
         for (Transaction tr : transactions) {
             if (tr != null && tr.getId() == transaction.getId())
@@ -68,7 +69,7 @@ public class TransactionDAO {
             if (t == null)
                 c++;
         }
-        if (c < 1) throw new InternalServerException("Not enough space to save transaction " + transaction.getId());
+        if (c < 1) throw new LimitExceeded("Not enough space to save transaction " + transaction.getId());
     }
 
 
@@ -84,11 +85,26 @@ public class TransactionDAO {
     }
 
     public Transaction[] transactionList(String city) throws BadRequestException {
+
+        int a = 0;
+        for (String c : utils.getCities()) {
+            if (c.equals(city)) {
+                a++;
+            }
+        }
+        if (a < 1) throw new BadRequestException("City " + city + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
+
+
         int count = 0;
+        int c = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getCity().equals(city))
                 count++;
+            if (t == null)
+                c++;
         }
+
+        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
         if (count <= 0) throw new BadRequestException("No transactions found with city " + city);
 
 
@@ -108,10 +124,14 @@ public class TransactionDAO {
 
     public Transaction[] transactionList(int amount) throws BadRequestException {
         int count = 0;
+        int c = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getAmount() == amount)
                 count++;
+            if (t == null)
+                c++;
         }
+        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
         if (count <= 0) throw new BadRequestException("No transactions found with amount " + amount);
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
