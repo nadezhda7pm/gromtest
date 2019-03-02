@@ -109,7 +109,7 @@ public class TransactionDAO {
         }
 
         if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
-        if (count <= 0) throw new BadRequestException("No transactions found with city " + city);
+        if (count == 0) throw new BadRequestException("No transactions found with city " + city);
 
 
         Transaction[] transactionsWithProperCity = new Transaction[count];
@@ -140,7 +140,7 @@ public class TransactionDAO {
                 c++;
         }
         if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
-        if (count <= 0) throw new BadRequestException("No transactions found with amount " + amount);
+        if (count == 0) throw new BadRequestException("No transactions found with amount " + amount);
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
         int i = 0;
