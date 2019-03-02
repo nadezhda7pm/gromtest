@@ -33,15 +33,15 @@ public class TransactionDAO {
 
     private void validate(Transaction transaction) throws BadRequestException, InternalServerException, LimitExceeded {
 
+        if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
+            throw new LimitExceeded("Transaction limit exceeded " + transaction.getId() + ". Can't be saved");
+
         int a = 0;
         for (Transaction tr : transactions) {
             if (tr != null && tr.getId() == transaction.getId())
                 a++;
         }
         if(a > 0) throw new InternalServerException("Transaction with the following id already exists: " + transaction.getId());
-
-        if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
-            throw new LimitExceeded("Transaction limit exceeded " + transaction.getId() + ". Can't be saved");
 
         int sum = 0;
         int count = 0;
