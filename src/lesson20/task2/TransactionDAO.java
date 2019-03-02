@@ -72,7 +72,7 @@ public class TransactionDAO {
             if (t == null)
                 c++;
         }
-        if (c < 1) throw new LimitExceeded("Not enough space to save transaction " + transaction.getId());
+        if (c < 1) throw new InternalServerException("Not enough space to save transaction " + transaction.getId());
     }
 
 
