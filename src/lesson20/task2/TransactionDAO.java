@@ -12,6 +12,9 @@ public class TransactionDAO {
     private Utils utils = new Utils();
 
     public Transaction save(Transaction transaction) throws BadRequestException, InternalServerException {
+//        if amount sum > limit
+//        if sum of tr amounts for one day > day limit
+//        if q-ty of trs for a day > limit
 //        if city is not allowed BadRequestException
 //        if there's no space InternalsServerException
 
@@ -29,17 +32,13 @@ public class TransactionDAO {
 
     private void validate(Transaction transaction) throws BadRequestException, InternalServerException, LimitExceeded {
 
-        if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
-            throw new LimitExceeded("Transaction limit exceeded " + transaction.getId() + ". Can't be saved");
-
-        int a = 0;
         for (Transaction tr : transactions) {
             if (tr != null && tr.getId() == transaction.getId())
-                a++;
+                throw new InternalServerException("Transaction with the following id already exists: " + transaction.getId());
         }
-        if (a > 0)
-            throw new InternalServerException("Transaction with the following id already exists: " + transaction.getId());
 
+        if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
+            throw new LimitExceeded("Transaction limit exceeded " + transaction.getId() + ". Can't be saved");
 
         int sum = 0;
         int count = 0;
@@ -50,10 +49,10 @@ public class TransactionDAO {
             }
         }
 
-        if (sum > utils.getLimitTransactionsPerDayAmount())
+        if (sum + transaction.getAmount() > utils.getLimitTransactionsPerDayAmount())
             throw new LimitExceeded("Transaction limit per day amount exceeded " + transaction.getId() + ". Can't be saved");
 
-        if (count > utils.getLimitTransactionsPerDayCount())
+        if (count >= utils.getLimitTransactionsPerDayCount())
             throw new LimitExceeded("Transaction limit per day count exceeded " + transaction.getId() + ". Can't be saved");
 
 
@@ -80,7 +79,7 @@ public class TransactionDAO {
             if (t == null)
                 count++;
         }
-        if (count == transactions.length) throw new BadRequestException("Transactions list  is empty");
+        if (count == (transactions.length + 1)) throw new BadRequestException("Transactions list  is empty");
         return transactions;
     }
 
@@ -94,7 +93,7 @@ public class TransactionDAO {
                 c++;
         }
 
-        if (c == transactions.length) throw new BadRequestException("Transactions list empty");
+        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
         if (count <= 0) throw new BadRequestException("No transactions found with city " + city);
 
 
@@ -114,10 +113,14 @@ public class TransactionDAO {
 
     public Transaction[] transactionList(int amount) throws BadRequestException {
         int count = 0;
+        int c = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getAmount() == amount)
                 count++;
+            if (t == null)
+                c++;
         }
+        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
         if (count <= 0) throw new BadRequestException("No transactions found with amount " + amount);
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
