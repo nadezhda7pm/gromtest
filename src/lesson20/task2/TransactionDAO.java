@@ -32,6 +32,7 @@ public class TransactionDAO {
     }
 
     private void validate(Transaction transaction) throws BadRequestException {
+        invalidCity(transaction);
 
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceeded " + transaction.getId() + ". Can't be saved");
@@ -55,11 +56,6 @@ public class TransactionDAO {
 
         if (count >= utils.getLimitTransactionsPerDayCount())
             throw new LimitExceeded("Transaction limit per day count exceeded " + transaction.getId() + ". Can't be saved");
-
-        invalidCity(transaction);
-
-
-
     }
 
     public Transaction[] transactionList() throws BadRequestException {
