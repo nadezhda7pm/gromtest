@@ -18,6 +18,7 @@ public class TransactionDAO {
 //        if q-ty of trs for a day > limit
 //        if city is not allowed BadRequestException
 //        if there's no space InternalsServerException
+//        if tr with such id exists
 
         validate(transaction);
         int i = 0;
@@ -38,7 +39,7 @@ public class TransactionDAO {
             throw new LimitExceeded("Transaction limit exceeded " + transaction.getId() + ". Can't be saved");
 
         for (Transaction tr : transactions) {
-            if (tr != null && tr.getId() == transaction.getId())
+            if (tr != null && tr.equals(transaction))
                 throw new BadRequestException("Transaction with the following id already exists: " + transaction.getId());
         }
 
