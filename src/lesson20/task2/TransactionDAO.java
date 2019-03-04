@@ -58,6 +58,8 @@ public class TransactionDAO {
 
         invalidCity(transaction);
 
+
+
     }
 
     public Transaction[] transactionList() throws BadRequestException {
