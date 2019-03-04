@@ -24,25 +24,22 @@ public class TransactionDAO {
         for (Transaction t : transactions) {
             if (t == null) {
                 transactions[i] = transaction;
-                break;
+                return transactions[i];
             }
             i++;
         }
-        return transactions[i];
+        throw new InternalServerException("Not enough space to save transaction " + transaction.getId());
     }
 
-    private void validate(Transaction transaction) throws BadRequestException, InternalServerException, LimitExceeded {
+    private void validate(Transaction transaction) throws BadRequestException {
 
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceeded " + transaction.getId() + ". Can't be saved");
 
-        int a = 0;
         for (Transaction tr : transactions) {
             if (tr != null && tr.getId() == transaction.getId())
-                a++;
+                throw new BadRequestException("Transaction with the following id already exists: " + transaction.getId());
         }
-        if (a > 0)
-            throw new InternalServerException("Transaction with the following id already exists: " + transaction.getId());
 
         int sum = 0;
         int count = 0;
@@ -59,22 +56,9 @@ public class TransactionDAO {
         if (count >= utils.getLimitTransactionsPerDayCount())
             throw new LimitExceeded("Transaction limit per day count exceeded " + transaction.getId() + ". Can't be saved");
 
+        invalidCity(transaction);
 
-        int i = 0;
-        for (String city : utils.getCities()) {
-            if (city != null && city.equals(transaction.getCity()))
-                i++;
-        }
-        if (i < 1) throw new BadRequestException("Wrong city for transaction " + transaction.getId());
-
-        int c = 0;
-        for (Transaction t : transactions) {
-            if (t == null)
-                c++;
-        }
-        if (c < 1) throw new InternalServerException("Not enough space to save transaction " + transaction.getId());
     }
-
 
     public Transaction[] transactionList() throws BadRequestException {
 
@@ -89,15 +73,7 @@ public class TransactionDAO {
 
     public Transaction[] transactionList(String city) throws BadRequestException {
 
-        int a = 0;
-        for (String c : utils.getCities()) {
-            if (c.equals(city)) {
-                a++;
-            }
-        }
-        if (a < 1)
-            throw new BadRequestException("City " + city + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
-
+        invalidCity(city);
 
         int count = 0;
         int c = 0;
@@ -155,6 +131,21 @@ public class TransactionDAO {
         return transactionsWithProperAmount;
     }
 
+    private void invalidCity (Transaction transaction) throws BadRequestException{
+        for (String city : utils.getCities()) {
+            if (city != null && city.equals(transaction.getCity()))
+                return;
+        }
+        throw new BadRequestException("City " + transaction.getCity() + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
+    }
+
+    private void invalidCity (String city) throws BadRequestException {
+        for (String c : utils.getCities()) {
+            if (c != null && c.equals(city))
+                return;
+        }
+        throw new BadRequestException("City " + city + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
+    }
 
     private Transaction[] getTransactionsPerDay(Date dateOfCurTransaction) {
         Calendar calendar = Calendar.getInstance();
