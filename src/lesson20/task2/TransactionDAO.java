@@ -40,7 +40,7 @@ public class TransactionDAO {
 
         for (Transaction tr : transactions) {
             if (tr != null && tr.equals(transaction))
-                throw new BadRequestException("Transaction with the following id already exists: " + transaction.getId());
+                throw new BadRequestException("Duplicate transaction: " + transaction);
         }
 
         int sum = 0;
