@@ -13,6 +13,7 @@ public class TransactionDAO {
     private Utils utils = new Utils();
 
     public Transaction save(Transaction transaction) throws BadRequestException, InternalServerException {
+//        if transaction is null
 //        if amount sum > limit
 //        if sum of tr amounts for one day > day limit
 //        if q-ty of trs for a day > limit
@@ -25,14 +26,17 @@ public class TransactionDAO {
         for (Transaction t : transactions) {
             if (t == null) {
                 transactions[i] = transaction;
-                break;
+                return transactions[i];
             }
             i++;
         }
-        return transactions[i];
+        throw new InternalServerException("Not enough space to save transaction " + transaction.getId());
     }
 
-    private void validate(Transaction transaction) throws BadRequestException, InternalServerException {
+    private void validate(Transaction transaction) throws BadRequestException {
+
+        if (transaction == null) throw new BadRequestException("Transaction is null. Can't be saved");
+
         invalidCity(transaction);
 
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
@@ -57,13 +61,6 @@ public class TransactionDAO {
 
         if (count >= utils.getLimitTransactionsPerDayCount())
             throw new LimitExceeded("Transaction limit per day count exceeded " + transaction.getId() + ". Can't be saved");
-
-        int i = 0;
-        for (Transaction t : transactions) {
-            if (t == null)
-            i++;
-        }
-        if (i < 0) throw new InternalServerException("Not enough space to save transaction " + transaction.getId());
     }
 
     public Transaction[] transactionList() {
@@ -78,15 +75,15 @@ public class TransactionDAO {
         }
 
         Transaction[] transactionsWithProperCity = new Transaction[count];
+
         if (count == 0) return transactionsWithProperCity;
+
         int i = 0;
-        int j = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getCity().equals(city)) {
-                transactionsWithProperCity[j] = transactions[i];
-                j++;
+                transactionsWithProperCity[i] = t;
+                i++;
             }
-            i++;
         }
         return transactionsWithProperCity;
     }
@@ -100,20 +97,20 @@ public class TransactionDAO {
         }
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
+
         if (count == 0) return transactionsWithProperAmount;
+
         int i = 0;
-        int j = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getAmount() == amount) {
-                transactionsWithProperAmount[j] = transactions[i];
-                j++;
+                transactionsWithProperAmount[i] = t;
+                i++;
             }
-            i++;
         }
         return transactionsWithProperAmount;
     }
 
-    private void invalidCity (Transaction transaction) throws BadRequestException{
+    private void invalidCity(Transaction transaction) throws BadRequestException {
         for (String city : utils.getCities()) {
             if (city != null && city.equals(transaction.getCity()))
                 return;
