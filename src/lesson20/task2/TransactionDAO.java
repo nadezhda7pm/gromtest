@@ -40,7 +40,7 @@ public class TransactionDAO {
 
         for (Transaction tr : transactions) {
             if (tr != null && tr.equals(transaction))
-                throw new BadRequestException("Duplicate transaction: " + transaction);
+                throw new BadRequestException("Duplicate transaction with id: " + transaction.getId());
         }
 
         int sum = 0;
@@ -59,33 +59,18 @@ public class TransactionDAO {
             throw new LimitExceeded("Transaction limit per day count exceeded " + transaction.getId() + ". Can't be saved");
     }
 
-    public Transaction[] transactionList() throws BadRequestException {
-
-        int count = 0;
-        for (Transaction t : transactions) {
-            if (t == null)
-                count++;
-        }
-        if (count == (transactions.length + 1)) throw new BadRequestException("Transactions list  is empty");
+    public Transaction[] transactionList() {
         return transactions;
     }
 
-    public Transaction[] transactionList(String city) throws BadRequestException {
-
-        invalidCity(city);
+    public Transaction[] transactionList(String city) {
 
         int count = 0;
-        int c = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getCity().equals(city))
                 count++;
-            if (t == null)
-                c++;
         }
-
-        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
-        if (count == 0) throw new BadRequestException("No transactions found with city " + city);
-
+//        if (count == 0) throw new BadRequestException("No transactions found with city " + city);
 
         Transaction[] transactionsWithProperCity = new Transaction[count];
         int i = 0;
@@ -101,21 +86,17 @@ public class TransactionDAO {
     }
 
 
-    public Transaction[] transactionList(int amount) throws BadRequestException {
+    public Transaction[] transactionList(int amount) {
 
-        if (0 >= amount || amount > utils.getLimitSimpleTransactionAmount())
-            throw new BadRequestException("Amount " + amount + " is not allowed amount for a simple transaction. Max allowed transaction amount is " + utils.getLimitSimpleTransactionAmount());
+//        if (0 >= amount || amount > utils.getLimitSimpleTransactionAmount())
+//            throw new BadRequestException("Amount " + amount + " is not allowed amount for a simple transaction. Max allowed transaction amount is " + utils.getLimitSimpleTransactionAmount());
 
         int count = 0;
-        int c = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getAmount() == amount)
                 count++;
-            if (t == null)
-                c++;
         }
-        if (c == (transactions.length + 1)) throw new BadRequestException("Transactions list empty");
-        if (count == 0) throw new BadRequestException("No transactions found with amount " + amount);
+//        if (count == 0) throw new BadRequestException("No transactions found with amount " + amount);
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
         int i = 0;
@@ -138,13 +119,13 @@ public class TransactionDAO {
         throw new BadRequestException("City " + transaction.getCity() + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
     }
 
-    private void invalidCity (String city) throws BadRequestException {
-        for (String c : utils.getCities()) {
-            if (c != null && c.equals(city))
-                return;
-        }
-        throw new BadRequestException("City " + city + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
-    }
+//    private void invalidCity (String city) throws BadRequestException {
+//        for (String c : utils.getCities()) {
+//            if (c != null && c.equals(city))
+//                return;
+//        }
+//        throw new BadRequestException("City " + city + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
+//    }
 
     private Transaction[] getTransactionsPerDay(Date dateOfCurTransaction) {
         Calendar calendar = Calendar.getInstance();
