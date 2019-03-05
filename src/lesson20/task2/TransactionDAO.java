@@ -75,9 +75,6 @@ public class TransactionDAO {
         }
 
         Transaction[] transactionsWithProperCity = new Transaction[count];
-
-        if (count == 0) return transactionsWithProperCity;
-
         int i = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getCity().equals(city)) {
@@ -97,9 +94,6 @@ public class TransactionDAO {
         }
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
-
-        if (count == 0) return transactionsWithProperAmount;
-
         int i = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getAmount() == amount) {
