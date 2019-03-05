@@ -25,14 +25,14 @@ public class TransactionDAO {
         for (Transaction t : transactions) {
             if (t == null) {
                 transactions[i] = transaction;
-                return transactions[i];
+                break;
             }
             i++;
         }
-        throw new InternalServerException("Not enough space to save transaction " + transaction.getId());
+        return transactions[i];
     }
 
-    private void validate(Transaction transaction) throws BadRequestException {
+    private void validate(Transaction transaction) throws BadRequestException, InternalServerException {
         invalidCity(transaction);
 
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
@@ -57,6 +57,13 @@ public class TransactionDAO {
 
         if (count >= utils.getLimitTransactionsPerDayCount())
             throw new LimitExceeded("Transaction limit per day count exceeded " + transaction.getId() + ". Can't be saved");
+
+        int i = 0;
+        for (Transaction t : transactions) {
+            if (t == null)
+            i++;
+        }
+        if (i < 0) throw new InternalServerException("Not enough space to save transaction " + transaction.getId());
     }
 
     public Transaction[] transactionList() {
