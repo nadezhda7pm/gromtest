@@ -30,23 +30,12 @@ public class Demo {
 
         Controller controller = new Controller();
 
-        try {
+
             controller.transactionList();
-        } catch (BadRequestException e) {
-            System.out.println(e.getMessage());
-        }
 
-
-        try {
             System.out.println(Arrays.toString(controller.transactionList()));
-        } catch (BadRequestException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
+
             System.out.println(Arrays.toString(controller.transactionList("Odessa")));
-        } catch (BadRequestException e) {
-            System.out.println(e.getMessage());
-        }
 
         for (Transaction t : ts) {
             try {
@@ -59,37 +48,16 @@ public class Demo {
 
         }
 
-        try {
-            System.out.println(Arrays.toString(controller.transactionList()));
-        } catch (BadRequestException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println(Arrays.toString(controller.transactionList()));
 
 
-        try {
-            System.out.println(Arrays.toString(controller.transactionList("Odessa")));
-        } catch (BadRequestException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println(Arrays.toString(controller.transactionList("Odessa")));
 
-        try {
-            System.out.println(Arrays.toString(controller.transactionList(10)));
-        } catch (BadRequestException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println(Arrays.toString(controller.transactionList(10)));
 
-        try {
-            System.out.println(Arrays.toString(controller.transactionList("Vinnytsya")));
-        } catch (BadRequestException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println(Arrays.toString(controller.transactionList("Vinnytsya")));
 
-        try {
-            System.out.println(Arrays.toString(controller.transactionList(9000)));
-        } catch (BadRequestException e) {
-            System.out.println(e.getMessage());
-        }
-
+        System.out.println(Arrays.toString(controller.transactionList(9000)));
 
     }
 }
