@@ -68,10 +68,9 @@ public class TransactionDAO {
     }
 
     public Transaction[] transactionList(String city) {
-        if (city == null) return null;
         int count = 0;
         for (Transaction t : transactions) {
-            if (t != null && t.getCity().equals(city))
+            if (city != null && t != null && city.equals(t.getCity()))
                 count++;
         }
 
@@ -81,7 +80,7 @@ public class TransactionDAO {
 
         int i = 0;
         for (Transaction t : transactions) {
-            if (t != null && t.getCity().equals(city)) {
+            if (t != null && city.equals(t.getCity())) {
                 transactionsWithProperCity[i] = t;
                 i++;
             }
@@ -112,7 +111,6 @@ public class TransactionDAO {
     }
 
     private void invalidCity(Transaction transaction) throws BadRequestException {
-   //     if (transaction == null) throw new BadRequestException("Transaction is null. Can't be saved");
         for (String city : utils.getCities()) {
             if (city != null && city.equals(transaction.getCity()))
                 return;

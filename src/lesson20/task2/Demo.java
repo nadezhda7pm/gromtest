@@ -59,5 +59,6 @@ public class Demo {
 
         System.out.println(Arrays.toString(controller.transactionList(9000)));
 
+        System.out.println(Arrays.toString(controller.transactionList(null)));
 }
 }
