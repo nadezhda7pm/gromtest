@@ -112,12 +112,12 @@ public class TransactionDAO {
     }
 
     private void invalidCity(Transaction transaction) throws BadRequestException {
-        if (transaction == null) throw  new  BadRequestException("City cannot be verified. Transaction is null.");
+   //     if (transaction == null) throw new BadRequestException("Transaction is null. Can't be saved");
         for (String city : utils.getCities()) {
             if (city != null && city.equals(transaction.getCity()))
                 return;
         }
-        throw new BadRequestException("City " + transaction.getCity() + " is not allowed for transactions. Allowed cities are: " + Arrays.toString(utils.getCities()));
+        throw new BadRequestException("City " + transaction.getCity() + " is not allowed for transactions. Transaction " + transaction.getId() + " is not saved.");
     }
 
 
