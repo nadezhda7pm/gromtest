@@ -68,6 +68,7 @@ public class TransactionDAO {
     }
 
     public Transaction[] transactionList(String city) {
+        if (city == null) return null;
         int count = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getCity().equals(city))
@@ -75,6 +76,9 @@ public class TransactionDAO {
         }
 
         Transaction[] transactionsWithProperCity = new Transaction[count];
+
+        if (count == 0) return transactionsWithProperCity;
+
         int i = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getCity().equals(city)) {
@@ -94,6 +98,9 @@ public class TransactionDAO {
         }
 
         Transaction[] transactionsWithProperAmount = new Transaction[count];
+
+        if (count == 0) return transactionsWithProperAmount;
+
         int i = 0;
         for (Transaction t : transactions) {
             if (t != null && t.getAmount() == amount) {
@@ -105,6 +112,7 @@ public class TransactionDAO {
     }
 
     private void invalidCity(Transaction transaction) throws BadRequestException {
+        if (transaction == null) throw  new  BadRequestException("City cannot be verified. Transaction is null.");
         for (String city : utils.getCities()) {
             if (city != null && city.equals(transaction.getCity()))
                 return;
