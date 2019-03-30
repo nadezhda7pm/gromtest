@@ -64,7 +64,25 @@ public class TransactionDAO {
     }
 
     public Transaction[] transactionList() {
-        return transactions;
+
+        int count = 0;
+        for (Transaction t : transactions) {
+            if (t != null)
+                count++;
+        }
+
+        Transaction[] transactionsToReturn = new Transaction[count];
+
+        if (count == 0) return transactionsToReturn;
+
+        int i = 0;
+        for (Transaction t : transactions) {
+            if (t != null) {
+                transactionsToReturn[i] = t;
+                i++;
+            }
+        }
+        return transactionsToReturn;
     }
 
     public Transaction[] transactionList(String city) {
