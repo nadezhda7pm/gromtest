@@ -1,7 +1,5 @@
 package lesson24.exercise;
 
-import lesson11.biginterfaceexample.SimpleReader;
-
 public class Tool {
     private String name;
     private String description;
