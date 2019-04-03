@@ -1,9 +1,11 @@
 package lesson25;
 
+import java.util.Arrays;
+
 public class Demo {
     public static void main(String[] args) throws Exception {
         GeneralDAO generalDAO = new GeneralDAO();
-        Order order = new Order(1);
+        Order order = new Order(10);
         generalDAO.validate(order);
 
         TestClass<String, Order, Long> testClass = new TestClass<>();
@@ -17,7 +19,35 @@ public class Demo {
         generalDAO.validate(variable);
         generalDAO.validate(test);
 
+        Order order1 = new Order(1);
+        Order order2 = new Order(2);
+        Order order11 = new Order(1);
 
+        Long l = new Long(1);
+        Long l1 = new Long(111);
+        Long l2 = new Long(222222);
+        Long l3 = new Long(333);
+        Long l4 = new Long(4444);
+        Long l5 = new Long(55555);
+
+
+        Order[] orders = {order1, order2, order11};
+        String[] strings = {"a", null, "bb", "ccc", "dd dd", "1"};
+        Long[] numbers = {l, l1, l2, l3, l4, l5};
+
+        for (Order el: orders){
+            generalDAO.save(el);
+        }
+        System.out.println(Arrays.deepToString(generalDAO.getAll()));
+
+        for (String el :  strings){
+            generalDAO.save(el);
+        }
+        System.out.println(Arrays.deepToString(generalDAO.getAll()));
+        for (Long el : numbers){
+            generalDAO.save(el);
+        }
+        System.out.println(Arrays.deepToString(generalDAO.getAll()));
 
     }
 }
