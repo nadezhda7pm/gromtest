@@ -13,32 +13,18 @@ private T[] array = (T[]) new Object[10];
     }
 
     public T save(T t)  throws Exception{
-        if (t == null)
-            throw new Exception("null can't be save");
 
         for(T el : array) {
             if (el != null && el.equals(t))
                 throw new Exception("such element already exists");
         }
 
-        int count = 0;
-        for (T el : array){
-            if (el == null)
-                count++;
-        }
-        if (count < 1)
-            throw new Exception("the array is full");
-
-
-        int index = 0;
-        for (T el : array){
-            if (el == null){
-                array[index] = t;
-                break;
-            }index++;
+        for (int i = 0; i < array.length; i++){
+            if (array[i] == null)
+                return array[i] = t;
         }
 
-        return array[index];
+        throw new Exception("the array is full");
     }
 
 
