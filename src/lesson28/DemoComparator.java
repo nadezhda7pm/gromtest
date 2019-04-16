@@ -13,8 +13,9 @@ public class DemoComparator {
         Capability capability3 = new Capability(900, "ctest", "rrr", true, new Date(118, 03, 06));
         Capability capability1 = new Capability(1001, "test", "rrr", true, new Date(119, 0, 11));
         Capability capability6 = new Capability(900, null, "rrr1", false, new Date());
-        Capability capability7 = new Capability(900, "atest", null, false, new Date());
         Capability capability8 = new Capability(900, "atest", "rrr1", false, null);
+        Capability capability7 = new Capability(900, "atest", null, false, new Date());
+        Capability capability9 = new Capability(900, "atest", "rrr1", false, new Date());
 
         ArrayList<Capability> capabilities = new ArrayList<>();
         capabilities.add(capability1);
@@ -25,6 +26,7 @@ public class DemoComparator {
         capabilities.add(capability6);
         capabilities.add(capability7);
         capabilities.add(capability8);
+        capabilities.add(capability9);
 
         System.out.println(capabilities);
         capabilities.sort(new IsActiveComparator());
