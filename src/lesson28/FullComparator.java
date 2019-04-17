@@ -18,24 +18,20 @@ public class FullComparator implements Comparator<Capability> {
 
         if (compareNullsLast( o1.getChannelName(), o2.getChannelName()) != 100)
             return compareNullsLast(o1.getChannelName(), o2.getChannelName());
-        else if (!o1.getChannelName().equals(o2.getChannelName()))
-            return o1.getChannelName().compareTo(o2.getChannelName());
-
         else if (compareNullsLast(o1.getFingerprint(), o2.getFingerprint()) != 100)
             return compareNullsLast(o1.getFingerprint(), o2.getFingerprint());
-        else if (!o1.getFingerprint().equals(o2.getFingerprint()))
-            return o1.getFingerprint().compareTo(o2.getFingerprint());
-
         else return dateComparator.compare(o1, o2);
     }
 
-    private <T> int compareNullsLast(T o1, T o2) {
+    private int compareNullsLast(String o1, String o2) {
         if (o1 == null && o2 != null)
             return 1;
         else if (o1 != null && o2 == null)
             return -1;
         else if (o1 == null && o2 == null)
             return 0;
+        else if (o1 != null && o2 != null && !o1.equals(o2))
+            return o1.compareTo(o2);
         else return 100;
     }
 }
