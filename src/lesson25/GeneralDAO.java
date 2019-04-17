@@ -14,12 +14,9 @@ private T[] array = (T[]) new Object[10];
 
     public T save(T t)  throws Exception{
 
-        for(T el : array) {
-            if (el != null && el.equals(t))
-                throw new Exception("such element already exists");
-        }
-
         for (int i = 0; i < array.length; i++){
+            if (array[i] != null && array[i].equals(t))
+                throw new Exception("such element already exists");
             if (array[i] == null)
                 return array[i] = t;
         }
