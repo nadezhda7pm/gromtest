@@ -10,34 +10,32 @@ public class FullComparator implements Comparator<Capability> {
 ////                if dateCreated not equal  - compare it
 ////                if dateCreated is equal - objects are equal
 
-    DateComparator comparator = new DateComparator();
-    int index;
+    DateComparator dateComparator = new DateComparator();
 
     @Override
     public int compare(Capability o1, Capability o2) {
         System.out.println("FullComparator is used");
 
-        if (o1.getChannelName() == null && o2.getChannelName() != null)
-            return 1;
-        else if (o1.getChannelName() != null && o2.getChannelName() == null)
-            return -1;
-        else if (o1.getChannelName() == null && o2.getChannelName() == null)
-            return 0;
+        if (compareNullsLast( o1.getChannelName(), o2.getChannelName()) != 100)
+            return compareNullsLast(o1.getChannelName(), o2.getChannelName());
         else if (!o1.getChannelName().equals(o2.getChannelName()))
             return o1.getChannelName().compareTo(o2.getChannelName());
 
-        else if (o1.getFingerprint() == null && o2.getFingerprint() != null)
-            return 1;
-        else if (o1.getFingerprint() != null && o2.getFingerprint() == null)
-            return -1;
-        else if (o1.getFingerprint() == null && o2.getFingerprint() == null)
-            return 0;
+        else if (compareNullsLast(o1.getFingerprint(), o2.getFingerprint()) != 100)
+            return compareNullsLast(o1.getFingerprint(), o2.getFingerprint());
         else if (!o1.getFingerprint().equals(o2.getFingerprint()))
             return o1.getFingerprint().compareTo(o2.getFingerprint());
 
-        else index = comparator.compare(o1, o2);
-
-        return index;
+        else return dateComparator.compare(o1, o2);
     }
 
+    private <T> int compareNullsLast(T o1, T o2) {
+        if (o1 == null && o2 != null)
+            return 1;
+        else if (o1 != null && o2 == null)
+            return -1;
+        else if (o1 == null && o2 == null)
+            return 0;
+        else return 100;
+    }
 }
