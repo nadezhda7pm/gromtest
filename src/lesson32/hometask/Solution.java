@@ -17,9 +17,10 @@ public class Solution {
         while (n >= 0) {
 
             String inputNumbers = br.readLine();
+            ArrayList<Integer> validatedNumbers = validateInput(inputNumbers);
 
-            if (validateInput(inputNumbers) != null) {
-                for (Integer i : validateInput(inputNumbers)) {
+            if (validatedNumbers != null) {
+                for (Integer i : validatedNumbers) {
        //             if (i != null)
                         result += i;
                 }
