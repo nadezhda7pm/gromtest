@@ -12,7 +12,9 @@ public class ReadWriteFile {
 //        writeFile("C:/Users/cdadmin/Desktop/testAAAAA.txt", "text text text ");
 //        writeFile("C:/Users/cdadmin/Desktop/testWWWWWWWW.odt", "new text! \n new text!!!!!");
 
-        writeToFileFromConsole("C:/Users/cdadmin/Desktop/testDDD.odt");
+//        writeToFileFromConsole("C:/Users/cdadmin/Desktop/testDDD.odt");
+
+        readFileByConsolePath();
 
 
     }
@@ -24,7 +26,7 @@ public class ReadWriteFile {
         try {
             reader = new FileReader(path);
         } catch (FileNotFoundException e) {
-            System.err.println("File does not exist");
+            System.err.println("File with path " + path + " not found");
             return;
         }
 
@@ -36,7 +38,7 @@ public class ReadWriteFile {
                 System.out.println(line);
             }
         } catch (IOException e) {
-            System.err.println("Reading from file " + path + " failed");
+            System.err.println("Can't read file by path" + path);
         }finally {
             IOUtils.closeQuietly(br);
             IOUtils.closeQuietly(reader);
@@ -112,6 +114,32 @@ public class ReadWriteFile {
             IOUtils.closeQuietly(writer);
         }
     }
+
+
+    private static void readFileByConsolePath(){
+
+        System.out.println("Please, enter file path to read: ");
+
+        InputStreamReader reader = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(reader);
+        String path = null;
+
+
+        try {
+            path = br.readLine();
+        } catch (IOException e) {
+            System.err.println("Reading from keyboard failed");
+        }finally {
+            IOUtils.closeQuietly(reader);
+            IOUtils.closeQuietly(br);
+        }
+
+        readFile(path);
+
+    }
+
+
+
 
 
 
