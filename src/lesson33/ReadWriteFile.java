@@ -55,6 +55,7 @@ public class ReadWriteFile {
         try {
             //TODO use other constructor
             writer = new FileWriter(path, true);
+ //           writer = new FileWriter(new File("path"), true);
             bufferedWriter = new BufferedWriter(writer);
 
             bufferedWriter.append(content);
@@ -62,7 +63,6 @@ public class ReadWriteFile {
 
         } catch (IOException e) {
             System.err.println("Can't write to file" + path);
-            return;
         }finally {
             IOUtils.closeQuietly(bufferedWriter);
             IOUtils.closeQuietly(writer);
@@ -70,7 +70,7 @@ public class ReadWriteFile {
     }
 
 
-    private static void writeToFileFromConsole(String path){
+    private static void writeToFileFromConsole(String path) {
 
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(reader);
@@ -83,16 +83,16 @@ public class ReadWriteFile {
 
         try {
             String line;
-            while(!(line = br.readLine()).equals("wr")) {
-                    content += line;
+            while (!(line = br.readLine()).equals("wr")) {
+                content += line;
 
             }
         } catch (IOException e) {
             System.err.println("Reading from keyboard failed");
-        }finally {
-        IOUtils.closeQuietly(reader);
-        IOUtils.closeQuietly(br);
-    }
+        } finally {
+            IOUtils.closeQuietly(reader);
+            IOUtils.closeQuietly(br);
+        }
 
         try {
             fileReader = new FileReader(path);
@@ -109,14 +109,14 @@ public class ReadWriteFile {
 
         } catch (IOException e) {
             System.err.println("Can't write to file with path " + path);
-        }finally {
+        } finally {
             IOUtils.closeQuietly(bufferedWriter);
             IOUtils.closeQuietly(writer);
         }
     }
 
 
-    private static void readFileByConsolePath(){
+    private static void readFileByConsolePath() {
 
         System.out.println("Please, enter file path to read: ");
 
@@ -129,7 +129,7 @@ public class ReadWriteFile {
             path = br.readLine();
         } catch (IOException e) {
             System.err.println("Reading from keyboard failed");
-        }finally {
+        } finally {
             IOUtils.closeQuietly(reader);
             IOUtils.closeQuietly(br);
         }
@@ -137,11 +137,5 @@ public class ReadWriteFile {
         readFile(path);
 
     }
-
-
-
-
-
-
 
 }
