@@ -8,15 +8,15 @@ import java.util.Set;
 public class Demo {
     public static void main(String[] args) {
 
+        Controller controller = new Controller();
+
         Firm firm1 = new Firm(new Date(117, 06, 06));
         Firm firm2 = new Firm(new Date(117, 06, 06));
         Firm firm3 = new Firm(new Date(117, 06, 06));
 
-        FirmDAO firmDAO = new FirmDAO();
-
-        firmDAO.add(firm1);
-        firmDAO.add(firm2);
-        firmDAO.add(firm3);
+        controller.getFirmDAO().add(firm1);
+        controller.getFirmDAO().add(firm2);
+        controller.getFirmDAO().add(firm3);
 
 
 
@@ -24,8 +24,6 @@ public class Demo {
         Customer customer2 = new Customer("Pepsi", "UK", 400);
         Customer customer3 = new Customer("Sprite", "Poland", 1600);
         Customer customer4 = new Customer("XXX", "Poland", 1600);
-
-        CustomerDAO customerDAO = new CustomerDAO();
 
         CustomerDAO.getCustomers().add(customer1);
         CustomerDAO.getCustomers().add(customer2);
@@ -39,12 +37,11 @@ public class Demo {
         Project project3 = new Project("Saturn", CustomerDAO.getCustomerByName("Sprite"));
         Project project4 = new Project("Mercury", CustomerDAO.getCustomerByName("Cola"));
 
-        ProjectDAO projectDAO = new ProjectDAO();
-
         ProjectDAO.getProjects().add(project1);
         ProjectDAO.getProjects().add(project2);
         ProjectDAO.getProjects().add(project3);
         ProjectDAO.getProjects().add(project4);
+
 
         Set<Project> projectsEmployee1 = new HashSet<>();
         projectsEmployee1.add(ProjectDAO.getProjectByName("Venus"));
@@ -82,9 +79,6 @@ public class Demo {
         Employee employee9 = new Employee("T2", "Sweet", new Date(112, 07, 19), Position.TEAM_LEAD, new Department(DepartmentType.MANAGERS), projectsEmployee6);
         Employee employee10 = new Employee("T3", "Sweet", new Date(112, 07, 19), Position.TEAM_LEAD, new Department(DepartmentType.MANAGERS), projectsEmployee5);
 
-
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-
         EmployeeDAO.getEmployees().add(employee1);
         EmployeeDAO.getEmployees().add(employee2);
         EmployeeDAO.getEmployees().add(employee3);
@@ -111,11 +105,11 @@ public class Demo {
         devs.add(employee1);
 
 
+
+
         Department developers = new Department(DepartmentType.DEVELOPERS, devs);
         Department managers = new Department(DepartmentType.MANAGERS, mans);
         Department finance = new Department(DepartmentType.FINANCE, fins);
-
-        DepartmentDAO departmentDAO = new DepartmentDAO();
 
         DepartmentDAO.getDepartments().add(developers);
         DepartmentDAO.getDepartments().add(managers);
@@ -123,8 +117,6 @@ public class Demo {
 
 
 
-
-        Controller controller = new Controller();
 
 
 //   employeesByProject:
@@ -138,7 +130,7 @@ public class Demo {
 
         System.out.println(controller.projectsByEmployee(employee1));
         System.out.println(controller.projectsByEmployee(employee1));
-        System.out.println(controller.projectsByEmployee(null));
+      //  System.out.println(controller.projectsByEmployee(null));
         System.out.println(controller.projectsByEmployee(employee7));
 
 
@@ -146,7 +138,7 @@ public class Demo {
 
         System.out.println(controller.employeesByDepartmentWithoutProject(DepartmentType.DEVELOPERS));
         System.out.println(controller.employeesByDepartmentWithoutProject(DepartmentType.MANAGERS));
-        System.out.println(controller.employeesByDepartmentWithoutProject(null));
+       // System.out.println(controller.employeesByDepartmentWithoutProject(null));
 
 
 // employeesWithoutProject
@@ -180,19 +172,7 @@ public class Demo {
 
 
 
-
-
-
-
-
-
-
-
-
     }
-
-
-
 
 
 }

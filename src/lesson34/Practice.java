@@ -6,7 +6,7 @@ import java.io.*;
 public class Practice {
 
     public static void main(String[] args) throws Exception {
-        copyFileContent("C:/Users/cdadmin/Desktop/testFrom.odt", "C:/Users/cdadmin/Desktop/testTo.odt");
+        copyFileContent("C:/Users/cdadmin/Desktop/testFrom.txt", "C:/Users/cdadmin/Desktop/testTo.txt");
 
     }
 
@@ -16,7 +16,7 @@ public class Practice {
         // write content to fileTo
 
         validate(fileFromPath, fileToPath);
-        wriieToFile(fileToPath, readFromFile(fileFromPath));
+        writeToFile(fileToPath, readFromFile(fileFromPath));
     }
 
     private static StringBuffer readFromFile(String path) {
@@ -25,7 +25,7 @@ public class Practice {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = br.readLine()) != null) {
-                res.append(res);
+                res.append(line);
                 res.append("\n");
             }
 
@@ -38,8 +38,8 @@ public class Practice {
         return res;
     }
 
-    private static void wriieToFile(String path, StringBuffer contentToWrite) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
+    private static void writeToFile(String path, StringBuffer contentToWrite) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, false))) {
             bufferedWriter.append(contentToWrite);
         } catch (IOException e) {
             System.err.println("Can't write to file " + path);

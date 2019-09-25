@@ -25,22 +25,14 @@ public class ProjectDAO {
     }
 
 
+    public Set<Project> projectsByEmployee(Employee employee) {
 
-//
-//    public static Project add (Project p){
-//        projects.add(p);
-//        return p;
-//    }
-//
-//    public static Project remove (Project p){
-//        projects.remove(p);
-//        return p;
-//    }
-//
-//    public static Project contains (Project p){
-//        projects.contains(p);
-//        return p;
-//    }
+        Set<Project> projectsByEmployee = new HashSet<>();
+
+            projectsByEmployee = employee.getProjects();
+
+        return projectsByEmployee;
+    }
 
 
 }

@@ -5,116 +5,55 @@ import java.util.Set;
 
 public class Controller {
 
-    public Set<Employee> employeesByProject(String projectName) {
+private EmployeeDAO employeeDAO = new EmployeeDAO();
+private ProjectDAO projectDAO = new ProjectDAO();
 
-        Set<Employee> employeesByProject = new HashSet<>();
+private CustomerDAO customerDAO = new CustomerDAO();
+private DepartmentDAO departmentDAO = new DepartmentDAO();
+private FirmDAO firmDAO = new FirmDAO();
 
-        if (projectName != null) {
-            for (Employee e : EmployeeDAO.getEmployees()) {
-                if (e != null && e.getProjects() != null && e.getProjects().contains(ProjectDAO.getProjectByName(projectName)))
-                    employeesByProject.add(e);
-            }
-        }
-        return employeesByProject;
+
+    public Set<Employee> employeesByProject(String projectName) {return employeeDAO.employeesByProject(projectName);}
+
+
+    public Set<Project> projectsByEmployee(Employee employee) {return projectDAO.projectsByEmployee(employee);}
+
+
+    public Set<Employee> employeesByDepartmentWithoutProject(DepartmentType departmentType) {return employeeDAO.employeesByDepartmentWithoutProject(departmentType);}
+
+
+    public Set<Employee> employeesWithoutProject() {return employeeDAO.employeesWithoutProject();}
+
+
+    public Set<Employee> employeesByTeamLead(Employee lead) {return employeeDAO.employeesByTeamLead(lead);}
+
+
+    public Set<Employee> teamLeadsByEmployee(Employee employee) {return employeeDAO.teamLeadsByEmployee(employee);}
+
+
+    public Set<Employee> employeesByProjectEmployee(Employee employee) {return employeeDAO.employeesByProjectEmployee(employee);}
+
+
+    public Set<Employee> employeesByCustomerProjects(Customer customer) {return employeeDAO.employeesByCustomerProjects(customer);}
+
+
+    public EmployeeDAO getEmployeeDAO() {
+        return employeeDAO;
     }
 
-
-    public Set<Project> projectsByEmployee(Employee employee) {
-
-        Set<Project> projectsByEmployee = new HashSet<>();
-
-        if (employee != null)
-            projectsByEmployee = employee.getProjects();
-
-        return projectsByEmployee;
+    public ProjectDAO getProjectDAO() {
+        return projectDAO;
     }
 
-
-    public Set<Employee> employeesByDepartmentWithoutProject(DepartmentType departmentType) {
-
-        Set<Employee> employeesByDepartmentWithoutProject = new HashSet<>();
-
-        if (departmentType != null) {
-            for (Employee e : employeesWithoutProject()) {
-                if (e.getDepartment().getType() == departmentType)
-                    employeesByDepartmentWithoutProject.add(e);
-            }
-        }
-        return employeesByDepartmentWithoutProject;
+    public CustomerDAO getCustomerDAO() {
+        return customerDAO;
     }
 
-
-    public Set<Employee> employeesWithoutProject() {
-
-        Set<Employee> employeesWithoutProject = new HashSet<>();
-
-        for (Employee e : EmployeeDAO.getEmployees()) {
-            if (e != null && e.getProjects() != null && e.getProjects().isEmpty())
-                employeesWithoutProject.add(e);
-        }
-
-        return employeesWithoutProject;
+    public DepartmentDAO getDepartmentDAO() {
+        return departmentDAO;
     }
 
-
-    public Set<Employee> employeesByTeamLead(Employee lead) {
-
-        Set<Employee> employeesByTeamLead = new HashSet<>();
-
-        if (lead != null && lead.getProjects() != null)
-            for (Project p : lead.getProjects()) {
-                for (Employee e : employeesByProject(p.getName())) {
-                    if (e != null && e.getPosition() != Position.TEAM_LEAD)
-                        employeesByTeamLead.add(e);
-                }
-            }
-        return employeesByTeamLead;
+    public FirmDAO getFirmDAO() {
+        return firmDAO;
     }
-
-
-    public Set<Employee> teamLeadsByEmployee(Employee employee) {
-
-        Set<Employee> teamLeadsByEmployee = new HashSet<>();
-
-//        if (employee.getProjects() != null)
-//            for (Project p : employee.getProjects()) {
-//                for (Employee e : EmployeeDAO.getEmployees()) {
-//                    if (e != null && e.getPosition() == Position.TEAM_LEAD && e.getProjects() != null && e.getProjects().contains(p))
-//                        teamLeadsByEmployee.add(e);
-//                }
-//            }
-        for (Employee e : employeesByProjectEmployee(employee)) {
-            if (e != null && e.getPosition() == Position.TEAM_LEAD)
-                teamLeadsByEmployee.add(e);
-        }
-        teamLeadsByEmployee.remove(employee);
-        return teamLeadsByEmployee;
-    }
-
-
-    public Set<Employee> employeesByProjectEmployee(Employee employee) {
-
-        Set<Employee> employeesByProjectEmployee = new HashSet<>();
-
-        for (Project p : projectsByEmployee(employee)) {
-            employeesByProjectEmployee.addAll(employeesByProject(p.getName()));
-        }
-
-        employeesByProjectEmployee.remove(employee);
-
-        return employeesByProjectEmployee;
-    }
-
-
-    public Set<Employee> employeesByCustomerProjects(Customer customer) {
-
-        Set<Employee> employeesByCustomerProjects = new HashSet<>();
-
-        for (Project p : ProjectDAO.getProjects()) {
-            if (p != null && p.getCustomer().equals(customer))
-                employeesByCustomerProjects.addAll(employeesByProject(p.getName()));
-        }
-        return employeesByCustomerProjects;
-    }
-
 }
