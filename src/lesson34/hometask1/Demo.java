@@ -1,4 +1,4 @@
-package lesson34.hometask;
+package lesson34.hometask1;
 
 public class Demo {
 

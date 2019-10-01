@@ -1,6 +1,4 @@
-package lesson34.hometask;
-
-import org.apache.commons.io.FileUtils;
+package lesson34.hometask1;
 
 import java.io.*;
 
