@@ -102,10 +102,10 @@ public class Solution {
         File fileTo = new File(fileToPath);
 
         if (!fileFrom.exists() || !fileFrom.canWrite()) {
-            throw new FileNotFoundException("File " + fileFrom + " does not exist or does not have permissions to be written");
+            throw new Exception("File " + fileFrom + " does not exist or does not have permissions to be written");
         }
         if (!fileTo.exists() || !fileTo.canWrite()) {
-            throw new FileNotFoundException("File " + fileTo + " does not exist or does not have permissions to be written");
+            throw new Exception("File " + fileTo + " does not exist or does not have permissions to be written");
         }
         if (!fileFrom.canRead()) {
             throw new Exception("File " + fileFrom + " does not have permissions to be read");
